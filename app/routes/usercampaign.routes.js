@@ -8,6 +8,9 @@ module.exports = app => {
   
     // Retrieve all user campaign
     router.get("/", usercampaigns.findAll);
+
+     // Check user campaign
+     router.get("/check", usercampaigns.CheckUserCampaign);
   
     // Retrieve a single user campaign with id
     router.get("/:id", [verifyJwtTokenController.verifyToken], usercampaigns.findOne);

@@ -55,6 +55,32 @@ exports.addCampaignUser = (req, res) => {
     console.log(">> Error while adding Compaign to News: ", err);
   });
 };
+
+
+// Check User Campaign.
+exports.CheckUserCampaign = (req, res) => {
+
+  Campaign_User.findAndCountAll({
+    where: {
+      campaign_id: {
+        [Op.eq]: req.query.campaign_id
+      },
+      user_id: {
+        [Op.eq]: req.query.user_id
+      }
+    },
+    offset: 10,
+    limit: 2
+  }).then((result) => {
+    if (result.count > 0){
+      res.send("true");
+    }else{
+      res.send("false");
+    }
+  });
+
+};
+
 // Retrieve all Campaign from the database.
 exports.findAll = (req, res) => {
     const code = req.query.code;

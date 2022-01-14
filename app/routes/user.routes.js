@@ -9,6 +9,8 @@ module.exports = app => {
   
     // Login
     router.post("/signin", users.signin);
+     // Forget Password
+     router.post("/forget", users.forget);
 
     // Login
     router.get("/signout", users.signout);

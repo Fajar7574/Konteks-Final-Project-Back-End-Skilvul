@@ -3,6 +3,9 @@ module.exports = (sequelize, Sequelize) => {
       code: {
         type: Sequelize.STRING
       },
+      desc: {
+        type: Sequelize.STRING
+      },
       nameimage: {
         type: Sequelize.STRING
       },

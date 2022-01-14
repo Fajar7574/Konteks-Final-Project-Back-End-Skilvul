@@ -13,12 +13,19 @@ exports.create = (req, res) => {
     });
     return;
   }
+  if (!req.body.desc) {
+    res.status(400).send({
+      message: "desc can not be empty!"
+    });
+    return;
+  }
 
   // Create a user
   const campaign = {
     code: req.body.code,
     nameimage: req.file.originalname,
-    pathimage : req.file.path
+    pathimage : req.file.path,
+    desc : req.body.desc
   };
 
   // Save User in the database

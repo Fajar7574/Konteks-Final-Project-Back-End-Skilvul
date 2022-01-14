@@ -39,7 +39,7 @@ exports.create = (req, res) => {
     .then(data => {
       res.status(200).send({
         auth: true,
-        id: req.body.id,
+        id: data.id,
         message: "User registered successfully!",
         errors: null,
       });
@@ -70,7 +70,7 @@ exports.signin = (req, res) => {
   }
   User.findOne({
     where :{
-      name : req.body.name,
+      name : req.body.name
     }
   }).then(user => {
     if (!user){
@@ -84,7 +84,7 @@ exports.signin = (req, res) => {
     }
     
     var passwordIsValid = req.body.password;
-    if (!passwordIsValid) {
+    if (passwordIsValid != user.password) {
       return res.status(401).send({
         auth: false,
         id: req.body.id,
@@ -98,7 +98,74 @@ exports.signin = (req, res) => {
     }, config.secret, {
       expiresIn: 86400 //24h expired
     });
+  if (req.body.password = user.password){
+    res.status(200).send({
+      auth: true,
+      id: user.id,
+      accessToken: token,
+      message: "Success",
+      errors: null
+    
+    });
+  }
 
+  }).catch(err => {
+    res.status(500).send({
+      auth: false,
+      id: req.body.id,
+      accessToken: null,
+      message: "Error",
+      errors: err.message
+    });
+  });
+  
+};
+//Create and Save a new Tutorial
+exports.forget = (req, res) => {
+  // Validate request
+  if (!req.body.name) {
+    res.status(400).send({
+      message: "Name can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.email) {
+    res.status(400).send({
+      message: "email can not be empty!"
+    });
+    return;
+  }
+  User.findOne({
+    where :{
+      name : req.body.name,
+    }
+  }).then(user => {
+    if (!user){
+      return res.status(404).send({
+        auth: false,
+        id: req.body.id,
+        accessToken: null,
+        message: "Error",
+        errors: "User Not Found."
+      });
+    }
+    
+    var emailIsValid = req.body.email;
+    if (emailIsValid != user.email) {
+      return res.status(401).send({
+        auth: false,
+        id: req.body.id,
+        accessToken: null,
+        message: "Error",
+        errors: "Invalid Email!"
+      });
+    }
+    var token = 'Bearer ' + jwt.sign({
+      id: user.id
+    }, config.secret, {
+      expiresIn: 30 
+    });
+    if (req.body.email=user.email){
     res.status(200).send({
       auth: true,
       id: req.body.id,
@@ -106,6 +173,7 @@ exports.signin = (req, res) => {
       message: "Success",
       errors: null
     });
+  }
 
   }).catch(err => {
     res.status(500).send({
