@@ -1,8 +1,8 @@
 module.exports = {
-    HOST: "localhost",
-    USER: "root",
-    PASSWORD: "",
-    DB: "Konteks",
+    HOST: "sql6.freemysqlhosting.net",
+    USER: "sql6465654",
+    PASSWORD: "TfD5z6Ibck",
+    DB: "sql6465654",
     dialect: "mysql",
     pool: {
       max: 5,
