@@ -66,7 +66,7 @@ exports.findAll = (req, res) => {
             {
             model: News,
             as: "campaignsnews",
-            attributes: ["id", "title","content","hyperlink"],
+            attributes: ["id", "title","content","link"],
             through: {
                 attributes: [],
                 },
@@ -93,7 +93,7 @@ exports.findOne = (req, res) => {
                 {
                     model: News,
                     as: "campaignsnews",
-                    attributes: ["id", "title","content","hyperlink"],
+                    attributes: ["id", "title","content","link"],
                     through: {
                         attributes: [],
                     },
