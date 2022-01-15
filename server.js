@@ -19,7 +19,7 @@ let allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Headers', "*");
   next();
 }
-
+app.use(allowCrossDomain);
 // parse requests of content-type - application/form-data
 //app.use(bodyParser.json);
 //app.use(bodyParser.urlencoded({ extended: true }));
