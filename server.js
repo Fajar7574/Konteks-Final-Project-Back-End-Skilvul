@@ -14,6 +14,12 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
+let allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Headers', "*");
+  next();
+}
+
 // parse requests of content-type - application/form-data
 //app.use(bodyParser.json);
 //app.use(bodyParser.urlencoded({ extended: true }));
